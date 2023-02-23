@@ -45,8 +45,28 @@ def post_add_member():
         jackson_family.add_member(member)
     except Exception as e:
         print(e)
-        return jsonify({"message": "No se pudo registrar"}), 400
-    return jsonify({"message": "Usuario registrado"}), 200
+        return jsonify({"message": "Error al agregar"}), 400
+    return jsonify({"message": "Miembro agregado con exito"}), 200
+
+@app.route('/member/<int:member_id>', methods=['GET'])
+def get_one_member(member_id):  
+    try:
+        one_member = jackson_family.get_member(member_id)
+
+    except Exception as e:
+        print(e)
+        return jsonify({"message": "Error al buscar el miembro"}), 400
+    return jsonify(one_member), 200
+
+@app.route('/member/<int:member_id>', methods=['DELETE'])
+def delete_one_member(member_id):  
+    try:
+        one_member = jackson_family.delete_member(member_id)
+
+    except Exception as e:
+        print(e)
+        return jsonify({"message": "Error al buscar el miembro"}), 400
+    return jsonify({"message": "Miembro borrado con exito"}), 200
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
